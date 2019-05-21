@@ -12,7 +12,7 @@
 	<artifactId>vehicle-simulator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>vehicle-simulator</name>
-	<description>Demo project for Spring Boot</description>
+	<description>vehicle simulator</description>
 
 	<properties>
 		<java.version>1.8</java.version>
