@@ -1,0 +1,35 @@
+<div _ngcontent-jbu-c1="" class="w3-container  w3-card-4">
+
+  <select [(ngModel)]="customer" class="w3-select">
+    <option value="" disabled selected>Filter By Customer</option>
+    <option value="">All</option>
+    <option *ngFor="let customer of customers" value="{{customer.name}}">{{customer.name}}</option>
+  </select>
+
+
+  <select [(ngModel)]="status" class="w3-select">
+    <option value="" disabled selected>Filter By Status</option>
+    <option value="">All</option>
+    <option value="connected">connected</option>
+    <option value="disconnected">disconnected</option>
+  </select>
+  <br><br>
+</div>
+<br><br>
+<div _ngcontent-jbu-c1="" class="w3-container  w3-card-4">
+  <table class="w3-table-all">
+    <tr>
+      <th>Vin</th>
+      <th>Registeration Number</th>
+      <th>Customer Name</th>
+      <th>Status</th>
+    </tr>
+    <tr *ngFor="let vehicle of vehicles | vehiclesFilter:customer | vehiclesFilter:status">
+      <td>{{vehicle.vin}}</td>
+      <td>{{vehicle.regNumber}}</td>
+      <td>{{vehicle.customer.name}}</td>
+      <td>{{vehicle.status}}</td>
+    </tr>
+
+  </table>
+</div>

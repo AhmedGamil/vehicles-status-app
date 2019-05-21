@@ -1,0 +1,50 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: openjdk8
+      docker: 18
+      nodejs: 10
+    commands:
+    - echo Installing source NPM dependencies...
+    - npm install
+    - npm install -g @angular/cli
+    
+    
+
+    
+  pre_build:
+    commands:
+    - echo Logging in to Amazon ECR...
+    - $(aws ecr get-login --no-include-email --region us-east-2)
+    
+    
+  build:
+    commands:
+    - cd vechile-status-monitor-ng
+    - npm link
+    - ng build --prod
+    - cd ..
+    
+    - mvn clean install
+    
+    - docker build -t "vehicle-repo/config" ./config
+    - docker build -t "vehicle-repo/registry" ./registry
+    - docker build -t "vehicle-repo/gateway" ./gateway
+    - docker build -t "vehicle-repo/customer-vehicle" ./customer-vehicle-service
+    - docker build -t "vehicle-repo/vehicle-status" ./vehicle-status-service    
+    
+    - docker tag vehicle-repo/config:latest 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/config:latest
+    - docker tag vehicle-repo/registry:latest 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/registry:latest
+    - docker tag vehicle-repo/gateway:latest 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/gateway:latest 
+    - docker tag vehicle-repo/customer-vehicle:latest 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/customer-vehicle:latest
+    - docker tag vehicle-repo/vehicle-status:latest 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/vehicle-status:latest
+  
+  
+  post_build:
+    commands:
+    - docker push 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/config:latest
+    - docker push 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/registry:latest
+    - docker push 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/gateway:latest
+    - docker push 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/customer-vehicle:latest
+    - docker push 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/vehicle-status:latest
