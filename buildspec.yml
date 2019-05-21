@@ -21,7 +21,7 @@ phases:
     
   build:
     commands:
-    - cd vechile-status-monitor-ng
+    - cd vehicle-status-monitor-ng
     - npm link
     - ng build --prod
     - cd ..
