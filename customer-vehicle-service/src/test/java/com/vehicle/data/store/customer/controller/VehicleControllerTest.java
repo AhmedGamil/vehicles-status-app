@@ -22,56 +22,62 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.vehicle.data.store.customer.model.Customer;
-import com.vehicle.data.store.customer.repository.CustomerRepository;
+import com.vehicle.data.store.customer.model.Vehicle;
+import com.vehicle.data.store.customer.repository.VehicleRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CustomerControllerTest {
+public class VehicleControllerTest {
 	
 	@InjectMocks
-	private CustomerController customerController;
+	private VehicleController controller;
 	
 	@Mock
-	private CustomerRepository customerRepository;
+	private VehicleRepository repository;
 	
 	private MockMvc mockMvc;
 	
 	@Before
 	public void setUp() throws Exception {
 		initMocks(this);
-		this.mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
 	@Test
 	public void shouldGetAllCustomerswithOkResponseCode() throws Exception {
-		final List<Customer> mockCustomers = new ArrayList<>();
-		Customer customer = new Customer();
-		customer.setId(1L);
-		customer.setName("Name 1");
-		customer.setAddress("Address ");
-		mockCustomers.add(customer);
+		final List<Vehicle> mockVehicles = new ArrayList<>();
+		Vehicle vehicle = new Vehicle();
+		vehicle.setVin("vin123456");
+		vehicle.setRegNumber("ABC123");
+		vehicle.setCustomer(new Customer());
+		vehicle.getCustomer().setId(1L);
+		vehicle.getCustomer().setName("Name 1");
+		vehicle.getCustomer().setAddress("Address 1");
+		mockVehicles.add(vehicle);
 
-		when(customerRepository.findAll()).thenReturn(mockCustomers);
+		when(repository.findAll()).thenReturn(mockVehicles);
 
-		mockMvc.perform(get("/customer/"))
-				.andExpect(jsonPath("$.[0].id").value(customer.getId()))
-				.andExpect(jsonPath("$.[0].name").value(customer.getName()))
-				.andExpect(jsonPath("$.[0].address").value(customer.getAddress()))
+		mockMvc.perform(get("/vehicle/"))
+				.andExpect(jsonPath("$.[0].vin").value(vehicle.getVin()))
+				.andExpect(jsonPath("$.[0].regNumber").value(vehicle.getRegNumber()))
+				.andExpect(jsonPath("$.[0].customer.id").value(vehicle.getCustomer().getId()))
+				.andExpect(jsonPath("$.[0].customer.name").value(vehicle.getCustomer().getName()))
+				.andExpect(jsonPath("$.[0].customer.address").value(vehicle.getCustomer().getAddress()))
 				.andExpect(status().isOk());
 		
-		verify(customerRepository, times(1)).findAll();
+		verify(repository, times(1)).findAll();
 	}
 	
 	@Test
 	public void shouldReturnNotFoundResponseCode() throws Exception {
-		final List<Customer> all = new ArrayList<>();
+		final List<Vehicle> all = new ArrayList<>();
 
-		when(customerRepository.findAll()).thenReturn(all);
+		when(repository.findAll()).thenReturn(all);
 
-		mockMvc.perform(get("/customer/"))				
+		mockMvc.perform(get("/vehicle/"))				
 				.andExpect(status().isNotFound());
 		
-		verify(customerRepository, times(1)).findAll();
+		verify(repository, times(1)).findAll();
 	}
 
 }
