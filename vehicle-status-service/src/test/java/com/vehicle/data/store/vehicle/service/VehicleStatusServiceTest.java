@@ -50,13 +50,14 @@ public class VehicleStatusServiceTest {
 		Date now = new Date();
 		Calendar aMinutesAgo = Calendar.getInstance();
 		aMinutesAgo.add(Calendar.MINUTE, CONNECTION_THRESHOLD_MINUTES);
-		when(repository.findByLastConnectionDateBetween(aMinutesAgo.getTime(), now)).thenReturn(mock);
+		Date aMinutesAgoDate = aMinutesAgo.getTime();
+		when(repository.findByLastConnectionDateBetween(aMinutesAgoDate, now)).thenReturn(mock);
 
 		List<String> actual = service.findConnectedVehicles().get();
 		assertEquals(mock.size(), actual.size());
 		assertThat(actual, contains(mock.get(0).getVin()));
 
-		verify(repository, times(1)).findByLastConnectionDateBetween(aMinutesAgo.getTime(),  now);
+		verify(repository, times(1)).findByLastConnectionDateBetween(aMinutesAgoDate,  now);
 	}
 
 	@Test
