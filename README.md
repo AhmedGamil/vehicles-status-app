@@ -51,9 +51,9 @@ http://ec2co-ecsel-1cmpxr74dz3to-1272201801.us-east-2.elb.amazonaws.com/
 
 2- I have created aws user with read capabilitis. Please use the following url to login:  
 https://905806897463.signin.aws.amazon.com/console
-
-Username: alten-user 
-Password: 'a|T4d&3RI2W
+  
+Username: alten-user   
+Password: 'a|T4d&3RI2W  
 
 3- After Login: you can open the cluster view from this url so you can check the running instances:  
 https://us-east-2.console.aws.amazon.com/ecs/home?region=us-east-2#/clusters/alten/services  
