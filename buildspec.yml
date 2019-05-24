@@ -26,7 +26,7 @@ phases:
     - ng build --prod
     - cd ..
     
-    - mvn clean install
+    - mvn install -Dmaven.test.skip=true
     
     - docker build -t "vehicle-repo/config" ./config
     - docker build -t "vehicle-repo/registry" ./registry
