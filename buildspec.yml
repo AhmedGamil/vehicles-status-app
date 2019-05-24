@@ -51,4 +51,6 @@ phases:
     
 
 artifacts:
-    files: appspec.yml
+    files: 
+     - '**/*'
+    name: appspec.yml
