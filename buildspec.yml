@@ -49,7 +49,6 @@ phases:
     - docker push 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/customer-vehicle:latest
     - docker push 905806897463.dkr.ecr.us-east-2.amazonaws.com/vehicle-repo/vehicle-status:latest
     
-    - printf '{"version":0,"Resources":[{"TargetService":{"Type":"AWS::ECS::Service","Properties":{"TaskDefinition":"arn:aws:ecs:us-east-2:905806897463:task-definition/alten:12","LoadBalancerInfo":{"ContainerName":"gatewat","ContainerPort":"4000"}}}}]}'  > appspec.json
 
 artifacts:
-    files: appspec.json
+    files: appspec.yml
