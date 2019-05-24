@@ -47,10 +47,10 @@ public class VehicleStatusServiceTest {
 	@Test
 	public void shouldReturnAllConnectedVehicles() {
 		final List<VehicleStatus> mock = getListOfConnecdVehiclesStub();
-		Date now = new Date();
+		final Date now = new Date();
 		Calendar aMinutesAgo = Calendar.getInstance();
 		aMinutesAgo.add(Calendar.MINUTE, CONNECTION_THRESHOLD_MINUTES);
-		Date aMinutesAgoDate = aMinutesAgo.getTime();
+		final Date aMinutesAgoDate = aMinutesAgo.getTime();
 		when(repository.findByLastConnectionDateBetween(aMinutesAgoDate, now)).thenReturn(mock);
 
 		List<String> actual = service.findConnectedVehicles().get();
