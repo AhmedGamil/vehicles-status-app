@@ -69,13 +69,15 @@ public class VehicleControllerTest {
 	}
 	
 	@Test
-	public void shouldReturnNotFoundResponseCode() throws Exception {
+	public void shouldReturnEmptyListWithOkResponseCode() throws Exception {
 		final List<Vehicle> all = new ArrayList<>();
 
 		when(repository.findAll()).thenReturn(all);
 
-		mockMvc.perform(get("/vehicle/"))				
-				.andExpect(status().isNotFound());
+		mockMvc.perform(get("/vehicle/"))
+				.andExpect(jsonPath("$").isArray())
+				.andExpect(jsonPath("$").isEmpty())
+				.andExpect(status().isOk());
 		
 		verify(repository, times(1)).findAll();
 	}

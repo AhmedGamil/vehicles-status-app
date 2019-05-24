@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,11 +21,7 @@ public class CustomerController {
 	
 	@RequestMapping(path = "/customer/", method = RequestMethod.GET)
 	public ResponseEntity<List<Customer>> getAllCustomers() {
-		List<Customer> allCustomers = customerRepository.findAll();		
-		if(CollectionUtils.isEmpty(allCustomers)) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(allCustomers);
+		return ResponseEntity.ok(customerRepository.findAll());
 	}
 
 }

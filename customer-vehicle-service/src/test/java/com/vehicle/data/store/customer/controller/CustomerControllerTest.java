@@ -43,7 +43,7 @@ public class CustomerControllerTest {
 	}
 
 	@Test
-	public void shouldGetAllCustomerswithOkResponseCode() throws Exception {
+	public void shouldGetAllCustomersWithOkResponseCode() throws Exception {
 		final List<Customer> mockCustomers = new ArrayList<>();
 		Customer customer = new Customer();
 		customer.setId(1L);
@@ -63,13 +63,15 @@ public class CustomerControllerTest {
 	}
 	
 	@Test
-	public void shouldReturnNotFoundResponseCode() throws Exception {
+	public void shouldReturnEmptyListWithOkResponseCode() throws Exception {
 		final List<Customer> all = new ArrayList<>();
 
 		when(customerRepository.findAll()).thenReturn(all);
 
-		mockMvc.perform(get("/customer/"))				
-				.andExpect(status().isNotFound());
+		mockMvc.perform(get("/customer/"))	
+				.andExpect(jsonPath("$").isArray())
+				.andExpect(jsonPath("$").isEmpty())
+				.andExpect(status().isOk());
 		
 		verify(customerRepository, times(1)).findAll();
 	}

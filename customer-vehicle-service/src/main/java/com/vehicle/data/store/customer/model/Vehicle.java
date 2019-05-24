@@ -5,6 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import org.hibernate.annotations.ForeignKey;
 
 @Entity
 public class Vehicle {
@@ -16,6 +17,7 @@ public class Vehicle {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer_id")
+	@ForeignKey(name="none")
 	private Customer customer;
 	
 	public String getVin() {
