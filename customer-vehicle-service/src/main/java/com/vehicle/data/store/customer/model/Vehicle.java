@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import org.hibernate.annotations.ForeignKey;
 
+
 @Entity
 public class Vehicle {
 
