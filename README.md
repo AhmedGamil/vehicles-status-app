@@ -6,7 +6,7 @@ Java application to monitor vehicles connectivity status
 1- config: Spring cloud Config service to centralize configuration for all services  
 2- registry: Spring Cloud Eurkea works as discovery service.  
 3- gateway: Spring Cloud Zuul Proxy works as gateway for the whole application  
-4- customer-vehicle-service: responisble for managing customers with there vehicles  
+4- customer-vehicle-service: responisble for managing customers with their vehicles  
 5- vehicle-status-service: responsible for keeping vehicle status in the system  
 6- vehicle-status-monitor-ng: Angular application to display customer's vehicles with their status. cofigured to be embeded in gateway artifact.  
 7- vehicle-simulator: works as simulator for vehicles and send random status to the app. it can be run anyway (I will run on my local pc) and will call the app through the load balancer url.  
@@ -40,9 +40,10 @@ I implemented Full pipeline from source to production as follow and I used AWS c
   e- will push all images to AWS ECR  
 
 4- Deployment Phase:  
-  a- will run all instances as described in the task definition,  
-  b- will test the new deployed packages using the health check defined in the load balancer  
-  c- once the status is healthy, it will move the traffic to the new inctances (Replacement)   
+  a- pull images from AWS ECR
+  b- will run all instances as described in the task definition,  
+  c- will test the new deployed packages using the health check defined in the load balancer  
+  d- once the status is healthy, it will move the traffic to the new inctances (Replacement)   
   d- and will kill the old instances (Original)  
     
 ## How to Run:    
