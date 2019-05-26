@@ -44,21 +44,6 @@ public class VehicleStatusServiceTest {
 		initMocks(this);
 	}
 
-	@Test
-	public void shouldReturnAllConnectedVehicles() {
-		final List<VehicleStatus> mock = getListOfConnecdVehiclesStub();
-		final Date now = new Date();
-		Calendar aMinutesAgo = Calendar.getInstance();
-		aMinutesAgo.add(Calendar.MINUTE, CONNECTION_THRESHOLD_MINUTES);
-		final Date aMinutesAgoDate = aMinutesAgo.getTime();
-		when(repository.findByLastConnectionDateBetween(aMinutesAgoDate, now)).thenReturn(mock);
-
-		List<String> actual = service.findConnectedVehicles().get();
-		assertEquals(mock.size(), actual.size());
-		assertThat(actual, contains(mock.get(0).getVin()));
-
-		verify(repository, times(1)).findByLastConnectionDateBetween(aMinutesAgoDate,  now);
-	}
 
 	@Test
 	public void shouldThrowIllegalArgumentExceptionWhenVinisEmpty() {
