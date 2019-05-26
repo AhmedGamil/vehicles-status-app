@@ -62,3 +62,5 @@ https://us-east-2.console.aws.amazon.com/ecs/home?region=us-east-2#/clusters/alt
 4- You can check the pipeline workflow from here from here:  
 https://us-east-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/alten-vehicles-ci-cd-pipel/view  
 as mentioned the pipeline will start with any push command to the git repo  
+
+
